@@ -1,0 +1,26 @@
+plugins {
+    id 'org.springframework.boot' version '3.4.13' apply false
+}
+
+allprojects {
+    group = 'com.example.paymentplatform'
+    version = '0.1.0-SNAPSHOT'
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
+    }
+
+    tasks.withType(Test).configureEach {
+        useJUnitPlatform()
+    }
+}

@@ -1,0 +1,8 @@
+dependencies {
+    implementation platform('org.springframework.boot:spring-boot-dependencies:3.4.13')
+    implementation project(':payment-service')
+    implementation project(':processor-simulator')
+
+    testImplementation platform('org.springframework.boot:spring-boot-dependencies:3.4.13')
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
