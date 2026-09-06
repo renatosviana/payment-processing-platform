@@ -2,15 +2,43 @@
 
 Planning baseline — Iteration 1: reliable authorization through an unreliable processor.
 
-This repository is a learning project for payment architecture and agent-assisted engineering. This package contains planning documents only: application code, Gradle Wrapper, containers and CI will be implemented in bounded tasks after specification approval. No build or runtime tests have been run for this package.
+This repository is a learning project for payment architecture and agent-assisted engineering. The Iteration 1 planning baseline is now being implemented in bounded, reviewable tasks. The implementation is intentionally incomplete: authorization orchestration, containers, fault-injection scenarios and CI remain planned work.
 
 ## Start here
 
-1. Read [vision](docs/vision.md) and [authorization specification](docs/specs/iteration-01-authorization.md).
+1. Read [vision](docs/vision.md), the [authorization specification](docs/specs/iteration-01-authorization.md), and the [execution plan](docs/plans/iteration-01-execution-plan.md).
 2. Review [architecture](docs/architecture/iteration-01.md), [test strategy](docs/testing/iteration-01-test-strategy.md) and [threat model](docs/security/threat-model.md).
-3. Use the [review checklist](docs/reviews/iteration-01-approval.md) to accept or amend the proposed decisions.
-4. After approving the baseline, give an agent the [first-task prompt](docs/agents/first-task.md). It authorizes only T01 (Task 01).
-5. Review each task's diff and evidence before starting the next task in the [execution plan](docs/plans/iteration-01-execution-plan.md).
+3. Review the implementation status below and inspect each task's diff and evidence before starting the next task.
+
+## Implementation status
+
+Completed:
+
+- T01: Gradle multi-project skeleton with Java 17 and Spring Boot.
+- T02: HTTP processor simulator with approval, decline, conflict and idempotency behavior.
+- T03: PostgreSQL/Flyway payment persistence with transactional aggregate creation, uniqueness constraints and Testcontainers integration tests.
+
+Remaining planned work:
+
+- T04: Payment authorization API and service orchestration.
+- T05-T06: Docker Compose, Toxiproxy fault experiments and end-to-end evidence.
+- T07-T08: CI enforcement, operations documentation and final review.
+
+## Local verification
+
+Run the unit and module tests with:
+
+```powershell
+.\gradlew.bat test
+```
+
+The PostgreSQL persistence tests use Testcontainers and require Docker:
+
+```powershell
+.\gradlew.bat :payment-service:test --tests "*PaymentPersistencePostgresTest"
+```
+
+The current persistence tests verify that the payment, payment attempt and idempotency records are queryable after commit, and that constraint violations roll back the aggregate. These tests do not yet prove the full authorization flow or Docker-backed acceptance scenarios.
 
 ## Planned stack
 
