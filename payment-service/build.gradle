@@ -4,8 +4,14 @@ plugins {
 
 dependencies {
     implementation platform('org.springframework.boot:spring-boot-dependencies:3.4.13')
-    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.flywaydb:flyway-core'
+    implementation 'org.flywaydb:flyway-database-postgresql'
+
+    runtimeOnly 'org.postgresql:postgresql'
 
     testImplementation platform('org.springframework.boot:spring-boot-dependencies:3.4.13')
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.testcontainers:junit-jupiter'
+    testImplementation 'org.testcontainers:postgresql'
 }
